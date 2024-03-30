@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+input[type="text"],input[type="password"]{
+    @apply w-full outline-none  border-2 border-gray-500 mb-2 p-2 rounded-lg;
+}
