@@ -3,12 +3,13 @@ const cors=require('cors');
 const mongoose=require('mongoose');
 const User=require('./models/User.js')
 const bcrypt=require('bcryptjs');
-const jst=require('jsonwebtoken');
+const jwt=require('jsonwebtoken');
 
 require('dotenv').config()
 mongoose.set('strictQuery', false);
 const app=express();
 const bcryptSalt=bcrypt.genSaltSync(10);
+const jwtSecret='bkdgbkbgkdbgkbvikbggkheuir';
 app.use(express.json());
 app.use(cors({
     credentials:true,
@@ -42,7 +43,11 @@ app.post('/login', async(req,res)=>{
        const passChck=bcrypt.compareSync(password,user.password)
     
     if(passChck){
-        res.json("pass correct")
+jwt.sign({email:user.email, _id:user.id },jwtSecret,{},(err,token)=>{
+if(err) throw err;
+res.cookie('token',token).json(user);
+
+})
     }
     else{
 res.status(422).json("password incorrect")
