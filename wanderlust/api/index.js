@@ -57,4 +57,7 @@ res.status(422).json("password incorrect")
         res.json("Not found");
     }
 })
+app.get('/profile',(req,res)=>{
+res.json('user info')
+})
 app.listen(3000)
